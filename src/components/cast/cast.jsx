@@ -3,6 +3,7 @@ import React from "react";
 import { getMovieDetailsCast } from '../../components/api/api';
 
 import { useEffect, useState } from "react";
+import style from './coast.module.scss'
 
 const Cast = () => {
     
@@ -20,10 +21,10 @@ const Cast = () => {
       }, [movieid]);
 
     return  <>
-    <ul>
+    <ul className={style.list}>
         {cast?.cast?.map(cast => {
             return(
-                <li key={cast.id}>
+                <li key={cast.id} className={style.item}>
                     <img src={``} alt="" />
                     <p>{cast.name}</p>
                     <p>{cast.character}</p>

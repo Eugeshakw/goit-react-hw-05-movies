@@ -1,3 +1,31 @@
 .container{
     display: flex;
 }
+.tittle{
+    margin-left: 20px;
+}
+.list{
+    list-style: none;
+}
+
+.link{
+    text-decoration: none;
+    background-color: aquamarine;
+    padding: 10px;
+    border-radius: 10px;
+   
+    
+}
+.listlink{
+    
+    
+    list-style: none;
+    
+}
+.listcoastandrevie{
+    display: flex;
+}
+.listlink:not(:last-child){
+    margin-right: 10px;
+}
+

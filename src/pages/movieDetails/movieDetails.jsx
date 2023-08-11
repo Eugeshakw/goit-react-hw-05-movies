@@ -30,19 +30,19 @@ const MovieDetails = () => {
           <ul>
             <span>Genres: </span>
             {movie && movie.genres && movie.genres.map(genre => {
-              return <li key={genre.id}>{genre.name}</li>
+              return <li key={genre.id} className={style.list}>{genre.name}</li>
             })}
           </ul>
         </div>
       </div>
 
       
-      <ul>
-        <li>
-          <Link to="cast ">Cast</Link>
+      <ul className={style.listcoastandrevie}>
+        <li className={style.listlink}>
+          <Link to="cast" className={style.link}>Cast</Link>
         </li>
-        <li>
-          <Link to="Reviews">Reviews</Link>
+        <li className={style.listlink}>
+          <Link to="Reviews" className={style.link}>Reviews</Link>
         </li>
       </ul>
       <Outlet />
