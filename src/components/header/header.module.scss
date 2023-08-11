@@ -1,0 +1,24 @@
+.header{
+    border-bottom: 2px solid rgb(207, 199, 199);
+}
+
+.list{
+    display: flex;
+}
+.item {
+    list-style-type: none;
+   
+    background-color: aquamarine;
+
+}
+.item:not(:last-child) {
+    margin-right: 10px;
+
+}
+.link{
+    text-decoration: none;
+    padding: 10px;
+    background-color: aquamarine;
+    border: 1px solid tomato;
+    border-radius: 30%;
+}

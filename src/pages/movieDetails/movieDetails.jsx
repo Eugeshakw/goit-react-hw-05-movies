@@ -2,6 +2,7 @@ import { Link, Outlet, useParams } from 'react-router-dom';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { getMovieDetails } from '../../components/api/api';
+import style from './details.module.scss'
 const MovieDetails = () => {
   const { movieid } = useParams();
 
@@ -19,9 +20,9 @@ const MovieDetails = () => {
 
   return (
     <>
-      <div>
-        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="" />
-        <div>
+      <div className={style.container}>
+        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="" width='300px'/>
+        <div className={style.tittle}>
           <h1>{movie?.original_title}</h1>
           <p>{`User score ${score}%`}</p>
           <p>{movie?.overview}</p>

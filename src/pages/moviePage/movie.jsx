@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getmovieFilm } from '../../components/api/api';
+import style from './movie.module.scss'
 const Movie = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,12 +30,13 @@ const Movie = () => {
   return (
     <>
       <input
+        className={style.input}
         type="text"
-        value={movieid}
+        value={movieid || ''}
         onChange={evt => setSearchParams({ movieid: evt.target.value })}
         
       />
-      <button type="button">search</button>
+      <button type="button" className={style.btn}>search</button>
       <ul>
         {filterMovie.map(movie => {
           return (
