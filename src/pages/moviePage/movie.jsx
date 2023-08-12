@@ -33,7 +33,7 @@ const Movie = () => {
     };
    
     fetchData().catch(error => console.log(error));
-  }, [searchParams]);
+  });
 
   const filterMovie = movies.filter(m => m.title.includes(movieid));
   const location = useLocation()
