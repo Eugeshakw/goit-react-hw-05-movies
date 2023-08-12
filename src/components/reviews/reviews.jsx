@@ -5,6 +5,7 @@ const Reviews = () => {
 
     const {movieid} = useParams()
     const [reviews, setReviews] = useState([]);
+    
     useEffect(() => {
         const fetchData = async () => {
           const res = await getMovieDetailsReview(movieid);

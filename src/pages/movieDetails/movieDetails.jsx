@@ -1,25 +1,37 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { getMovieDetails } from '../../components/api/api';
 import style from './details.module.scss'
 const MovieDetails = () => {
+  const location = useLocation();
+  const comeBack = location.state?.state?? '/'
+  
   const { movieid } = useParams();
 
-  const [movie, setMovies] = useState([]);
-
+  const [movie, setMovies] = useState([] ?? null);
+  // console.log(movie);
   useEffect(() => {
     const fetchData = async () => {
       const res = await getMovieDetails(movieid);
-      console.log(res);
+      // console.log(res);
       setMovies(res);
+      
     };
-    fetchData().catch(error => console.log(error));
+   
+    
+    fetchData().catch(() => {
+      
+    })
   }, [movieid]);
   const score = Math.round(movie?.vote_average * 10);
 
+  // if (movie === null) {
+  //   return 
+  // }
   return (
     <>
+    <Link to={comeBack}>Back</Link>
       <div className={style.container}>
         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="" width='300px'/>
         <div className={style.tittle}>
@@ -39,10 +51,11 @@ const MovieDetails = () => {
       
       <ul className={style.listcoastandrevie}>
         <li className={style.listlink}>
-          <Link to="cast" className={style.link}>Cast</Link>
+          <Link to={comeBack} className={style.link}>Back</Link>
+          <Link to="cast" className={style.link} state={{from: location}}>Cast</Link>
         </li>
         <li className={style.listlink}>
-          <Link to="Reviews" className={style.link}>Reviews</Link>
+          <Link to="Reviews" className={style.link} state={{from: location}}>Reviews</Link>
         </li>
       </ul>
       <Outlet />

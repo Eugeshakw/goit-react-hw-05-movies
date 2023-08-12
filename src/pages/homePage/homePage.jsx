@@ -1,12 +1,12 @@
 import React from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useLocation} from 'react-router-dom';
 import { useEffect, useState} from 'react';
 import { getmovieFilm } from '../../components/api/api';
 
 const Home = () => {
 
 const [movies, setMovies] = useState([]);
-
+const location = useLocation()
 
 const {movieid} = useParams()
 
@@ -27,7 +27,7 @@ useEffect(() => {
         {movies.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+              <Link to={`/movies/${movie.id}`} state={{from: location}}>{movie.title}</Link>
             </li>
           );
         })}

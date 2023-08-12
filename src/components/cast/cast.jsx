@@ -7,6 +7,7 @@ import style from './coast.module.scss'
 
 const Cast = () => {
     
+    
     const {movieid} = useParams()
 
     const [cast, setCast] = useState([]);
