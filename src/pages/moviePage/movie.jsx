@@ -1,20 +1,29 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getmovieFilm } from '../../components/api/api';
 import style from './movie.module.scss';
 const Movie = () => {
   
 
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams);
+  // console.log(searchParams);
   const movieid = searchParams.get('movieid');
+
   console.log(movieid);
 
-  //   console.log(searchParams);
+  
+
+  
 
   const [movies, setMovies] = useState([]);
+
+  
+
     console.log(movies);
- 
+    
+   
+
+
   useEffect(() => {
 
     const fetchData = async () => {
@@ -27,27 +36,38 @@ const Movie = () => {
       
       else {
         setMovies([]);
+        return;
+       
       }
 
       
     };
    
     fetchData().catch(error => console.log(error));
-  });
+  }, []);
 
   const filterMovie = movies.filter(m => m.title.includes(movieid));
-  const location = useLocation()
-  const cameback = location.state?.from?? '/'
+ 
+
+const handleInputChange = e => {
+  setSearchParams({ movieid: e.target.value })
+  console.log(searchParams, 'movieid', e.target.value);
+ 
+}
+  
   return (
     <>
-      <Link state={cameback}>Back</Link>
+      
       <input
         className={style.input}
         type="text"
         value={movieid || ''}
-        onChange={evt => setSearchParams({ movieid: evt.target.value })}
+        onChange={handleInputChange}
       />
-      <button type="button" className={style.btn}>
+      <button 
+      type="button" 
+      className={style.btn}
+      onClick={() => setSearchParams({ movieid })}>
         search
       </button>
       <ul>

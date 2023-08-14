@@ -5,16 +5,17 @@ import { getMovieDetails } from '../../components/api/api';
 import style from './details.module.scss'
 const MovieDetails = () => {
   const location = useLocation();
-  const comeBack = location.state?.state?? '/'
+ 
   
   const { movieid } = useParams();
+  const {searchParams} = useParams()
 
   const [movie, setMovies] = useState([] ?? null);
-  // console.log(movie);
+  console.log(movie);
   useEffect(() => {
     const fetchData = async () => {
       const res = await getMovieDetails(movieid);
-      // console.log(res);
+      console.log(res.results);
       setMovies(res);
       
     };
@@ -31,7 +32,7 @@ const MovieDetails = () => {
   // }
   return (
     <>
-    <Link to={comeBack}>Back</Link>
+    <Link to={location?.state?.from || `/movie${movieid}`}>Back</Link>
       <div className={style.container}>
         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="" width='300px'/>
         <div className={style.tittle}>
@@ -51,7 +52,7 @@ const MovieDetails = () => {
       
       <ul className={style.listcoastandrevie}>
         <li className={style.listlink}>
-          <Link to={comeBack} className={style.link}>Back</Link>
+          
           <Link to="cast" className={style.link} state={{from: location}}>Cast</Link>
         </li>
         <li className={style.listlink}>
