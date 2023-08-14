@@ -14,6 +14,19 @@ export async function getmovieFilm () {
 }
 
 
+export async function getMovieName (query) {
+    const {data} = await axios.get(`https://api.themoviedb.org/3/search/movie`,
+    {
+        params : {
+            api_key: '1c80f09422e88d690223d65314fad775',
+            query,
+            
+        }
+    }
+    )
+    return data;
+}
+
 export async function getMovieDetails (movieid) {
     const {data} = await axios.get(`https://api.themoviedb.org/3/movie/${movieid}`,
     {

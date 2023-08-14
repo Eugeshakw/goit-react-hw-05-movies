@@ -8,7 +8,7 @@ const MovieDetails = () => {
  
   
   const { movieid } = useParams();
-  const {searchParams} = useParams()
+  
 
   const [movie, setMovies] = useState([] ?? null);
   console.log(movie);

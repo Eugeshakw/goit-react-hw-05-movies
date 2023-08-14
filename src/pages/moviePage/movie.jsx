@@ -1,80 +1,60 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { getmovieFilm } from '../../components/api/api';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
+import { getMovieName } from '../../components/api/api';
 import style from './movie.module.scss';
 const Movie = () => {
-  
-
+  const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams();
-  // console.log(searchParams);
-  const movieid = searchParams.get('movieid');
-
-  console.log(movieid);
-
-  
-
-  
-
   const [movies, setMovies] = useState([]);
+  const query = searchParams.get('query');
+  console.log(query);
 
-  
+  const updateQeryString = query => {
+  const nextParams = query !== '' ? {query} : {};
+  setSearchParams(nextParams)
+  }
 
-    console.log(movies);
-    
-   
-
-
-  useEffect(() => {
-
-    const fetchData = async () => {
-      const res = await getmovieFilm();
-      //   console.log(res.results);
-      if (movieid !== '') {
-        setMovies(res.results);
-        
-      } 
-      
-      else {
-        setMovies([]);
-        return;
-       
-      }
-
-      
+  const handleInputChange = e => {
+      const newValue = e.target.value;
+      updateQeryString(newValue)
     };
-   
-    fetchData().catch(error => console.log(error));
-  }, []);
 
-  const filterMovie = movies.filter(m => m.title.includes(movieid));
- 
 
-const handleInputChange = e => {
-  setSearchParams({ movieid: e.target.value })
-  console.log(searchParams, 'movieid', e.target.value);
- 
-}
-  
+    useEffect(() => {
+        const fetchData = async () => {
+          const res = await getMovieName(query);
+          console.log(res);
+          setMovies(res.results);
+         
+    
+        };
+    
+        fetchData().catch(error => console.log(error));
+      }, [query]);
+
+
   return (
     <>
-      
       <input
         className={style.input}
         type="text"
-        value={movieid || ''}
+        value={query || ''}
         onChange={handleInputChange}
       />
-      <button 
-      type="button" 
-      className={style.btn}
-      onClick={() => setSearchParams({ movieid })}>
+      <button
+        type="button"
+        className={style.btn}
+        onClick={() => setSearchParams({ query })}
+      >
         search
       </button>
       <ul>
-        {filterMovie.map(movie => {
+        {movies.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+              <Link to={`/movies/${movie.id}`} state={{ from: location, movies }}>
+                {movie.title}
+              </Link>
             </li>
           );
         })}
