@@ -5,7 +5,7 @@ import { getMovieDetails } from '../../components/api/api';
 import style from './details.module.scss'
 const MovieDetails = () => {
   const location = useLocation();
- 
+  const cameBack = location?.state?.from ?? '/'
   
   const { movieid } = useParams();
   
@@ -32,7 +32,7 @@ const MovieDetails = () => {
   // }
   return (
     <>
-    <Link to={location?.state?.from || `/movie${movieid}`}>Back</Link>
+    <Link to={cameBack}>Back</Link>
       <div className={style.container}>
         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="" width='300px'/>
         <div className={style.tittle}>
@@ -53,10 +53,10 @@ const MovieDetails = () => {
       <ul className={style.listcoastandrevie}>
         <li className={style.listlink}>
           
-          <Link to="cast" className={style.link} state={{from: location}}>Cast</Link>
+          <Link to="cast" className={style.link} state={{from: cameBack}}>Cast</Link>
         </li>
         <li className={style.listlink}>
-          <Link to="Reviews" className={style.link} state={{from: location}}>Reviews</Link>
+          <Link to="Reviews" className={style.link} state={{from: cameBack}}>Reviews</Link>
         </li>
       </ul>
       <Outlet />
